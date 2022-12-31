@@ -63,16 +63,16 @@ make execute
 
 ## Bonus
 
-Execute for get verbose mode with more information about the dice results and internal data. 
+Execute for get verbose mode for a short play, with more information about the dice results and internal data. 
 
 In verbose mode you can see a new Player with random generated name and using new created dice rule strategy.
-
-### Screenshot
-![Screenshot](dice-game-verbose.png)
 
 ```
 make execute-verbose
 ```
+
+### Screenshot
+![Screenshot](dice-game-verbose.png)
 
 ## Observations
 ***
@@ -81,7 +81,7 @@ Some explanations about the generated code.
 
 The entry point for the application is index.php, you can also use index_verbose.php that show a more detailed information about internal data.
 
-The manager class is DiceGame, that receives round to play and players with a game strategy to follow.
+The manager class is DiceGame, that receives rounds to play and players with a game strategy to follow.
 ```
   $players = [
       Player::create(new UserName('John'), DiceFactory::create(DICE_STRATEGY_1)),
@@ -95,5 +95,5 @@ Apart from that, there is another important classes you can check:
 * src/Dice/Rules/Strategies: every implemented strategy:
   * Dice1Rules: 3 times roll dice within a 1 to 6 options
   * Dice2Rules: non know times roll dice if the point round is not above 5
-  * Dice3Rules: new strategy for implement a rule that only allow odd values in a 3 dice rolls maximum
+  * Dice3Rules: new strategy for implement a rule that only allow odd values in a 3 dice rolls maximum round
 
