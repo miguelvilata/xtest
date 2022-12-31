@@ -90,9 +90,8 @@ The manager class is DiceGame, that receives rounds to play and players with a g
   DiceGame::create($players)->play(ROUNDS_TO_PLAY)
 ```
 
-Apart from that, there is another important classes you can check:
-* src/Dice/Factory: in charge of building dice rules
-* src/Dice/Rules/Strategies: every implemented strategy:
+The implemented strategies are:
+* src/Dice/Rules/Strategies:
   * Dice1Rules: 3 times roll dice within a 1 to 6 options
   * Dice2Rules: non know times roll dice if the point round is not above 5
   * Dice3Rules: new strategy for implement a rule that only allow odd values in a 3 dice rolls maximum round
