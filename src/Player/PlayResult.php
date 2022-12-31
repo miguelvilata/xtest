@@ -11,7 +11,7 @@ final class PlayResult
         public readonly string $diceName,
         public readonly array $throws,
         public readonly int $points
-    ){
+    ) {
     }
 
     public function getRoundPoints(): int

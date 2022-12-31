@@ -12,7 +12,7 @@ use App\Interfaces\DiceInterface;
 
 final class DiceFactory
 {
-    static function create(int $strategy = null): DiceInterface
+    public static function create(int $strategy = null): DiceInterface
     {
         return match ($strategy) {
             1 => new Dice1Rules(),

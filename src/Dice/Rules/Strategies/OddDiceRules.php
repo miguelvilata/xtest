@@ -8,8 +8,8 @@ use App\Dice\Rules\AbstractBaseRules;
 
 final class OddDiceRules extends AbstractBaseRules
 {
-    const STRATEGY_NAME = 'DICE_ODD';
-    const CONSTRAINT_MAX_THROWS = 3;
+    public const STRATEGY_NAME = 'DICE_ODD';
+    public const CONSTRAINT_MAX_THROWS = 3;
 
     public function __construct(array $allowedValues = null)
     {

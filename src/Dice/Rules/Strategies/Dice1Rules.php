@@ -8,8 +8,8 @@ use App\Dice\Rules\AbstractBaseRules;
 
 class Dice1Rules extends AbstractBaseRules
 {
-    const STRATEGY_NAME = 'DICE_1';
-    const CONSTRAINT_MAX_THROWS = 3;
+    public const STRATEGY_NAME = 'DICE_1';
+    public const CONSTRAINT_MAX_THROWS = 3;
 
     public function canRoll(): bool
     {

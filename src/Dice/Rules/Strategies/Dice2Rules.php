@@ -8,7 +8,7 @@ use App\Dice\Rules\AbstractBaseRules;
 
 final class Dice2Rules extends AbstractBaseRules
 {
-    const STRATEGY_NAME = 'DICE_2';
+    public const STRATEGY_NAME = 'DICE_2';
 
     private int $value = 0;
 
