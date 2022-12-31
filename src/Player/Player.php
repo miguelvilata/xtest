@@ -20,7 +20,7 @@ final class Player
 
     public function __toString()
     {
-        return sprintf('player_%s', $this->id);
+        return $this->name;
     }
 
     public static function create(UserName $name, DiceInterface $dice): self

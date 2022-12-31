@@ -10,9 +10,22 @@ class Dice1Rules extends AbstractBaseRules
 {
     public const STRATEGY_NAME = 'DICE_1';
     public const CONSTRAINT_MAX_THROWS = 3;
+    private int $value;
 
     public function canRoll(): bool
     {
-        return ($this->throwsCounter < self::CONSTRAINT_MAX_THROWS);
+        $this->value = parent::roll();
+        $temporalPoints = $this->getCurrentPoints();
+
+        if ($temporalPoints > 10 || (($this->throwsCounter +1) > self::CONSTRAINT_MAX_THROWS)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function roll(int $value = null): int
+    {
+        return $this->value;
     }
 }

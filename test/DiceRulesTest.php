@@ -13,15 +13,6 @@ use App\Game\GameResult;
 
 final class DiceRulesTest extends TestCase
 {
-    //Dice1 rules only allow 3 times dice throw
-    public function testDice1Rules3TimesMax(): void
-    {
-        $roundResult = $this->buildPlayResultFor(new Dice1Rules());
-
-        $this->assertInstanceOf(GameResult::class, $roundResult);
-        $this->assertEquals(3, $roundResult->getThrowsCount());
-    }
-
     //This test checks a series of [3,3,3]
     public function testDice1RulesGetPoints(): void
     {
@@ -30,12 +21,20 @@ final class DiceRulesTest extends TestCase
         $this->assertEquals(9, $roundResult->getPoints());
     }
 
-    //This test checks a series of [6,6,6]
+    //This test checks a series of [6,6]
     public function testDice1RulesGetZeroPoints(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice1Rules([6]));
-        $this->assertEquals(3, $roundResult->getThrowsCount());
+        $this->assertEquals(2, $roundResult->getThrowsCount());
         $this->assertEquals(0, $roundResult->getPoints());
+    }
+
+    //This test checks a series of [1,1,1]
+    public function testDice1RulesGets3Points(): void
+    {
+        $roundResult = $this->buildPlayResultFor(new Dice1Rules([1]));
+        $this->assertEquals(3, $roundResult->getThrowsCount());
+        $this->assertEquals(3, $roundResult->getPoints());
     }
 
     //when total round is above 5 the last throw is accepted and computed
