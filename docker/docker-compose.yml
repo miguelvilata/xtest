@@ -1,0 +1,22 @@
+# tell docker what version of the docker-compose.yml we're using
+version: '3.7'
+
+# start the services section
+services:
+
+  docker-php-fpm:
+    restart: always
+    environment:
+      - DEBUG_PHP
+      - HOST_IP
+      - DEBUG
+      - REMOTE_HOST
+    build:
+      context: ./php-fpm
+    tty: true
+    volumes:
+      - ../:/var/www
+
+#  service:
+#    extra_hosts:
+#      - host.docker.internal:host-gateway
