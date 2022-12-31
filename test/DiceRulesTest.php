@@ -13,6 +13,7 @@ use App\Game\GameResult;
 
 final class DiceRulesTest extends TestCase
 {
+    //Dice1 rules only allow 3 times dice throw
     public function testDice1Rules3TimesMax(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice1Rules());
@@ -21,31 +22,58 @@ final class DiceRulesTest extends TestCase
         $this->assertEquals(3, $roundResult->getThrowsCount());
     }
 
+    //This test checks a series of [3,3,3]
     public function testDice1RulesGetPoints(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice1Rules([3]));
+        $this->assertEquals(3, $roundResult->getThrowsCount());
         $this->assertEquals(9, $roundResult->getPoints());
     }
 
+    //This test checks a series of [6,6,6]
     public function testDice1RulesGetZeroPoints(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice1Rules([6]));
+        $this->assertEquals(3, $roundResult->getThrowsCount());
         $this->assertEquals(0, $roundResult->getPoints());
     }
 
-    public function testDice2RulesStopWhenTotalAbove5(): void
+    //when total round is above 5 the last throw is accepted and computed
+    //for logic related to calculate round point. Currently if
+    //total round > 10 ten points = 0. This test checks a series of [6]
+    public function testDice2RulesStopWhenTotalRoundAbove5(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice2Rules([6]));
         $this->assertInstanceOf(GameResult::class, $roundResult);
-        $this->assertEquals(0, $roundResult->getThrowsCount());
-        $this->assertEquals(0, $roundResult->getPoints());
+        $this->assertEquals(1, $roundResult->getThrowsCount());
+        $this->assertEquals(6, $roundResult->getPoints());
     }
 
-    public function testDice2RulesStopWhenTotalUnder6(): void
+    //the rules will execute this throws (5,5,5) that should result in zero points
+    //due the value is above 10
+    //This test checks a series of [5,5]
+    public function testDice2RulesWhenFixedValue(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice2Rules([5]));
-        $this->assertEquals(1, $roundResult->getThrowsCount());
-        $this->assertEquals(5, $roundResult->getPoints());
+        $this->assertEquals(2, $roundResult->getThrowsCount());
+        $this->assertEquals(10, $roundResult->getPoints());
+    }
+
+    //when the only value available is 1, there must be 6 throws and 6 points
+    //This test checks a series of [1,1,1,1,1,1]
+    public function testDice2RulesCheckPointsValue(): void
+    {
+        $roundResult = $this->buildPlayResultFor(new Dice2Rules([1]));
+        $this->assertEquals(6, $roundResult->getThrowsCount());
+        $this->assertEquals(6, $roundResult->getPoints());
+    }
+
+    //This test checks a series of [4,4]
+    public function testDice2RulesGetZeroPoints(): void
+    {
+        $roundResult = $this->buildPlayResultFor(new Dice2Rules([4]));
+        $this->assertEquals(2, $roundResult->getThrowsCount());
+        $this->assertEquals(8, $roundResult->getPoints());
     }
 
     public function testUnExistentRuleException()

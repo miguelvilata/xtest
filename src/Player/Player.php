@@ -42,17 +42,11 @@ final class Player
     public function playRound(): PlayResult
     {
         $this->dice->reset();
-        $playResult = new PlayResult($this->name, $this->dice->getName());
 
-        while ($this->dice->canRoll($playResult)) {
-            $points = $this->dice->roll();
-            $playResult->addThrow($points);
+        while ($this->dice->canRoll()) {
+            $this->dice->roll();
         }
 
-        $playResult->setPoints(
-            $this->dice->getRoundPoints()
-        );;
-
-        return $playResult;
+        return new PlayResult($this->name, $this->dice->getName(), $this->dice->getThrows(), $this->dice->getRoundPoints());
     }
 }

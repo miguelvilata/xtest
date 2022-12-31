@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Game;
 
+use App\Player\Player;
+
 final class DiceGame
 {
     private array $results = [];
@@ -33,7 +35,7 @@ final class DiceGame
         return $this->results;
     }
 
-    private function playRounds(mixed $rounds, mixed $player, GameResult $gameResult): void
+    private function playRounds(int $rounds, Player $player, GameResult $gameResult): void
     {
         for ($i = 0; $i < $rounds; $i++) {
             $roundResult = $player->playRound();

@@ -11,6 +11,7 @@ abstract class AbstractBaseRules implements DiceRulesInterface, DiceInterface
     protected int $throwsCounter = 0;
     protected ?int $roundPoints = 0;
     protected ?int $points = 0;
+    private array $throws = [];
 
     public function __construct(array $allowedValues = null)
     {
@@ -26,18 +27,15 @@ abstract class AbstractBaseRules implements DiceRulesInterface, DiceInterface
     {
         $this->throwsCounter++;
         $value = $value ?? $this->doRoll();
+        $this->addThrow($value);
         $this->roundPoints = $this->roundPoints + $value;
 
         return $value;
     }
 
-    protected function doRoll(): int
-    {
-        return $this->allowedValues[array_rand($this->allowedValues)];
-    }
-
     public function reset(): void
     {
+        $this->throws = [];
         $this->roundPoints = 0;
         $this->throwsCounter = 0;
     }
@@ -48,6 +46,26 @@ abstract class AbstractBaseRules implements DiceRulesInterface, DiceInterface
         $this->points = $points;
 
         return $this->points;
+    }
+
+    public function getThrows(): array
+    {
+        return $this->throws;
+    }
+
+    protected function getCurrentPoints(): int
+    {
+        return array_sum($this->getThrows());
+    }
+
+    protected function doRoll(): int
+    {
+        return $this->allowedValues[array_rand($this->allowedValues)];
+    }
+
+    protected function addThrow(int $points): void
+    {
+        $this->throws[] = $points;
     }
 
     private function calculateRoundPoints(): int
