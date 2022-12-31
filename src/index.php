@@ -20,9 +20,4 @@ $players = [
     Player::create(new UserName('Hal'), DiceFactory::create(DICE_STRATEGY_2)),
 ];
 
-$diceGame = DiceGame::create($players)->play(ROUNDS_TO_PLAY)->getResults();
-
-foreach ($diceGame as $result) {
-    $playerResult = sprintf('%s: %s points %s', $result->playerName, $result->getPoints(), PHP_EOL);
-    print $playerResult;
-}
+DiceGame::create($players)->play(ROUNDS_TO_PLAY)->print();
