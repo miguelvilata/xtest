@@ -22,7 +22,7 @@ final class DiceGame
     public function play($rounds = 1): self
     {
         foreach ($this->players as $player) {
-            $gameResult = new GameResult($player->getName(), $player->getDiceStrategy());
+            $gameResult = new DiceGameResult($player->getName(), $player->getDiceStrategy());
             $this->playRounds($rounds, $player, $gameResult);
             $this->results[] = $gameResult;
         }
@@ -64,7 +64,7 @@ final class DiceGame
         }
     }
 
-    private function playRounds(int $rounds, Player $player, GameResult $gameResult): void
+    private function playRounds(int $rounds, Player $player, DiceGameResult $gameResult): void
     {
         for ($i = 0; $i < $rounds; $i++) {
             $roundResult = $player->playRound();

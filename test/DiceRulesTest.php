@@ -9,7 +9,7 @@ use App\ValueObjects\UserName;
 use PHPUnit\Framework\TestCase;
 use App\Dice\Rules\Strategies\Dice1Rules;
 use App\Dice\Rules\Strategies\Dice2Rules;
-use App\Game\GameResult;
+use App\Game\DiceGameResult;
 
 final class DiceRulesTest extends TestCase
 {
@@ -43,7 +43,7 @@ final class DiceRulesTest extends TestCase
     public function testDice2RulesStopWhenTotalRoundAbove5(): void
     {
         $roundResult = $this->buildPlayResultFor(new Dice2Rules([6]));
-        $this->assertInstanceOf(GameResult::class, $roundResult);
+        $this->assertInstanceOf(DiceGameResult::class, $roundResult);
         $this->assertEquals(1, $roundResult->getThrowsCount());
         $this->assertEquals(6, $roundResult->getPoints());
     }
@@ -81,7 +81,7 @@ final class DiceRulesTest extends TestCase
         DiceFactory::create(-1);
     }
 
-    private function buildPlayResultFor(DiceRulesInterface $diceRules): GameResult
+    private function buildPlayResultFor(DiceRulesInterface $diceRules): DiceGameResult
     {
         $diceGame = $this->buildGameResultsForDiceRules($diceRules);
         $this->assertIsArray($diceGame);

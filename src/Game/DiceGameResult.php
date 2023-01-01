@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Game;
 
-final class GameResult
+final class DiceGameResult
 {
     private int $points = 0;
     private array $throws = [];
