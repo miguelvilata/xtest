@@ -5,7 +5,7 @@ PHP_UNIT := vendor/bin/phpunit
 
 .PHONY: init
 init:
-	make start
+	make recreate
 	make composer-install
 	make restart
 
